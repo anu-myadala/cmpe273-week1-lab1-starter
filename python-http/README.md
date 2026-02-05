@@ -63,4 +63,9 @@ anumyad@Anus-Laptop cmpe273-week1-lab1-starter % curl -v "http://127.0.0.1:8081/
 * Closing connection
 
 ## What makes this distributed?
-Even though both services run on the same local machine, they operate as two distinct processes with separate memory spaces (Process IDs). They do not share state or memory; they communicate strictly over a network protocol (HTTP) via different ports (8080 and 8081). Because Service B acts as an independent client that must handle the network unavailability of Service A (as shown in the failure test), this demonstrates the core characteristics of a distributed system: independent failure and network-based communication.
+Even though both services run on the same local machine, they operate as two distinct 
+processes with separate memory spaces (Process IDs). They do not share state or memory; 
+they communicate strictly over a network protocol (HTTP) via different ports (8080 and 8081). 
+Because Service B acts as an independent client that must handle the network unavailability of 
+Service A (as shown in the failure test), this demonstrates the core characteristics of a distributed 
+system: independent failure and network-based communication.
