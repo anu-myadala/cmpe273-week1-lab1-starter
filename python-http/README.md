@@ -10,27 +10,36 @@ Build a tiny, locally distributed system with two services that communicate over
 - Flask (`pip install flask requests`)
 
 ### 2. Start Service A (Echo Server)
-Open a terminal and run:
+- Open a terminal and run:
 ```bash
 cd python-http
 # source venv/bin/activate  # (If using virtualenv)
 python3 service_a.py
+```
 Runs on localhost:8080
 
 ### 3. Start Service B (Client)
 Open a second terminal and run:
 
-Bash
+```bash
 
 cd python-http
 # source venv/bin/activate  # (If using virtualenv)
 python3 service_b.py
+```
 Runs on localhost:8081
 
 ## Test Results
 ## Success Case
-Running curl "http://127.0.0.1:8081/call-echo?msg=hello" returns a combined response from both services.
+Running 
+```bash
+ curl "http://127.0.0.1:8081/call-echo?msg=hello"
+```
+returns a combined response from both services.
+
+
 message:
+```bash
 anumyad@Anus-Laptop cmpe273-week1-lab1-starter % curl "http://127.0.0.1:8081/call-echo?msg=hello"
 {
   "service_a_response": {
@@ -38,10 +47,12 @@ anumyad@Anus-Laptop cmpe273-week1-lab1-starter % curl "http://127.0.0.1:8081/cal
   },
   "service_b_message": "Hello from B"
 }
-
+```
 ## Failure Case
 When Service A is stopped, Service B detects the timeout/connection error and returns HTTP 503.
+
 message:
+```bash
 anumyad@Anus-Laptop cmpe273-week1-lab1-starter % curl -v "http://127.0.0.1:8081/call-echo?msg=hello"
 *   Trying 127.0.0.1:8081...
 * Connected to 127.0.0.1 (127.0.0.1) port 8081
@@ -61,7 +72,7 @@ anumyad@Anus-Laptop cmpe273-week1-lab1-starter % curl -v "http://127.0.0.1:8081/
   "error": "Service A is unavailable"
 }
 * Closing connection
-
+```
 ## What makes this distributed?
 Even though both services run on the same local machine, they operate as two distinct 
 processes with separate memory spaces (Process IDs). They do not share state or memory; 
