@@ -30,9 +30,11 @@ Runs on localhost:8081
 ## Test Results
 ## Success Case
 Running curl "http://127.0.0.1:8081/call-echo?msg=hello" returns a combined response from both services.
+<img width="647" height="272" alt="success" src="https://github.com/user-attachments/assets/e3d8d82b-30f8-46bd-b694-8bf129d197fb" />
 
 ## Failure Case
 When Service A is stopped, Service B detects the timeout/connection error and returns HTTP 503.
+<img width="789" height="460" alt="failure" src="https://github.com/user-attachments/assets/f0121609-d1b1-4b67-a008-94ad3526de75" />
 
 ## What makes this distributed?
 Even though both services run on the same local machine, they operate as two distinct processes with separate memory spaces (Process IDs). They do not share state or memory; they communicate strictly over a network protocol (HTTP) via different ports (8080 and 8081). Because Service B acts as an independent client that must handle the network unavailability of Service A (as shown in the failure test), this demonstrates the core characteristics of a distributed system: independent failure and network-based communication.
