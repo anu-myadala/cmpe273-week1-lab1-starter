@@ -30,11 +30,37 @@ Runs on localhost:8081
 ## Test Results
 ## Success Case
 Running curl "http://127.0.0.1:8081/call-echo?msg=hello" returns a combined response from both services.
-<img width="647" height="272" alt="success" src="https://github.com/user-attachments/assets/e3d8d82b-30f8-46bd-b694-8bf129d197fb" />
+message:
+anumyad@Anus-Laptop cmpe273-week1-lab1-starter % curl "http://127.0.0.1:8081/call-echo?msg=hello"
+{
+  "service_a_response": {
+    "echo": "hello"
+  },
+  "service_b_message": "Hello from B"
+}
 
 ## Failure Case
 When Service A is stopped, Service B detects the timeout/connection error and returns HTTP 503.
-<img width="789" height="460" alt="failure" src="https://github.com/user-attachments/assets/f0121609-d1b1-4b67-a008-94ad3526de75" />
+message:
+anumyad@Anus-Laptop cmpe273-week1-lab1-starter % curl -v "http://127.0.0.1:8081/call-echo?msg=hello"
+*   Trying 127.0.0.1:8081...
+* Connected to 127.0.0.1 (127.0.0.1) port 8081
+> GET /call-echo?msg=hello HTTP/1.1
+> Host: 127.0.0.1:8081
+> User-Agent: curl/8.4.0
+> Accept: */*
+> 
+< HTTP/1.1 503 SERVICE UNAVAILABLE
+< Server: Werkzeug/3.1.5 Python/3.14.3
+< Date: Thu, 05 Feb 2026 03:02:02 GMT
+< Content-Type: application/json
+< Content-Length: 42
+< Connection: close
+< 
+{
+  "error": "Service A is unavailable"
+}
+* Closing connection
 
 ## What makes this distributed?
 Even though both services run on the same local machine, they operate as two distinct processes with separate memory spaces (Process IDs). They do not share state or memory; they communicate strictly over a network protocol (HTTP) via different ports (8080 and 8081). Because Service B acts as an independent client that must handle the network unavailability of Service A (as shown in the failure test), this demonstrates the core characteristics of a distributed system: independent failure and network-based communication.
